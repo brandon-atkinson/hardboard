@@ -5,4 +5,4 @@
 
 cd /opt/appuser
 
-./hardboard/bin/hardboard
+./hardboard/bin/hardboard > /tmp/hardboard.log 2>&1 &
