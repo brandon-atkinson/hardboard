@@ -11,6 +11,8 @@ apply plugin: 'groovy'
 apply plugin: 'spring-boot'
 apply plugin: 'application'
 
+rootProject.name = "hardboard"
+
 mainClassName = 'com.acknsyn.hardboard.Application'
 jar {
     manifest {
