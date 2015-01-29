@@ -33,3 +33,7 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.2'
 }
+
+applicationDistribution.from('src/main/scripts') {
+    include 'appspec.yml' into '/'
+};
