@@ -65,6 +65,10 @@ processResources {
 
 applicationDistribution.from('src/main/scripts') {
     include 'appspec.yml' into '/'
+
+}
+
+applicationDistribution.from('src/main/scripts') {
     include 'install_dependencies' into '/scripts/'
     include 'start_server' into '/scripts/'
     include 'stop_server' into '/scripts/'
