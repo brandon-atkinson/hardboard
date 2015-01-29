@@ -1,7 +1,7 @@
 #!/bin/bash
 
 . /etc/profile
-. /root/globalvars.sh
+. /etc/globalvars.sh
 
 ## add user
 

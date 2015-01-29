@@ -1,6 +1,6 @@
 #!/bin/bash
 
 . /etc/profile
-. /root/globalvars.sh
+. /etc/globalvars.sh
 
 /usr/bin/killall -u appuser
