@@ -65,7 +65,6 @@ processResources {
 
 applicationDistribution.from('src/main/scripts') {
     include 'appspec.yml' into '/'
-
 }
 
 applicationDistribution.from('src/main/scripts') {
