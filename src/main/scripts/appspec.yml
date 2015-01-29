@@ -9,7 +9,7 @@ permissions:
     owner: appuser
     group: appuser
 hooks:
-  Install:
+  ApplicationStart:
     - location: scripts/start_server
       timeout: 300
       runas: appuser
