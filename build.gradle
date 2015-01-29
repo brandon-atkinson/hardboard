@@ -23,9 +23,11 @@ repositories {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.4.0-rc-1'
+    compile 'org.codehaus.groovy:groovy:2.4.0'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.boot:spring-boot-stater-data-jpa'
+    compile 'com.h2database:h2:1.4.185'
 }
 
 task wrapper(type: Wrapper) {
