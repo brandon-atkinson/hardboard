@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The logback configuration for all AWS instances.
+Do not touch this file unless you want to change production logging.
+See logback.xml to configure development logging.
+-->
+<configuration scan="true" scanPeriod="1 minute">
+    <!-- The following levelchangepropagator is to make jul-over-slf4j performant.
+    The jersey libraries use JUL under the hood, but we bridge them into SLF4J for
+    consistency's sake.  This causes every JUL LogRecord to get duplicated and shipped to SLF4J,
+    and the level change propagator makes sure this only happens for enabled loggers.-->
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <property name="defaultEncoderPattern"
+        value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+
+    <property name="dev_phase" value="${_env:-local}}" />
+
+    <property resource="application.properties" />
+    <property resource="application-${dev_phase}.properties"/>
+
+    <property name="logfile_base" value="${log.dir:-logs}/${_app:-application}" />
+
+    <appender name="file"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logfile_base}.log</file>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${logfile_base}-%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>4</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>100MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>${defaultEncoderPattern}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="file" />
+    </root>
+</configuration>

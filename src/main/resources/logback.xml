@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The default logback configuration, intended to be used for development.
+For production configuration, see logback-aws.xml.
+-->
+<configuration debug="true" scan="true" scanPeriod="15 seconds">
+    <!-- The following levelchangepropagator is to make jul-over-slf4j performant.
+    The jersey libraries use JUL under the hood, but we bridge them into SLF4J for
+    consistency's sake.  This causes every JUL LogRecord to get duplicated and shipped to SLF4J,
+    and the level change propagator makes sure this only happens for enabled loggers.-->
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <property name="defaultEncoderPattern"
+        value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+
+    <property name="dev_phase" value="${_env:-local}" />
+
+    <property resource="application.properties" />
+    <property resource="application-${dev_phase}.properties"/>
+
+    <property name="logfile_base" value="${log.dir:-logs}/${_app:-application}" />
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${defaultEncoderPattern}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.acknsyn" level="debug" />
+
+    <logger name="org.springframework.boot" level="debug"/>
+    <logger name="org.springframework.data" level="debug" />
+    <logger name="org.springframework.security" level="debug" />
+    <logger name="org.hibernate" level="info" />
+
+    <root level="info">
+        <appender-ref ref="console" />
+    </root>
+</configuration>
