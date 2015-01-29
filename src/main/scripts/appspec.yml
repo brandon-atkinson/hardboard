@@ -3,6 +3,11 @@ os: linux
 files:
   - source: /
     destination: /opt/appuser
+permissions:
+  - object: /opt/appuser
+    pattern: "**"
+    owner: appuser
+    group: appuser
 hooks:
   Install:
     - location: scripts/start_server
