@@ -1,0 +1,12 @@
+#!/bin/bash
+
+. /etc/profile
+. /root/globalvars.sh
+
+## add user
+
+adduser ${_appUser} -d ${_appHomeDir}
+
+## add logdir
+mkdir ${_appLogDir}
+chown ${_appUser}: ${_appLogDir}
