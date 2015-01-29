@@ -63,6 +63,10 @@ processResources {
 
 }
 
+distZip {
+    archiveName = "${project.name}.zip"
+}
+
 applicationDistribution.from('src/main/scripts') {
     include 'appspec.yml' into '/'
 }
