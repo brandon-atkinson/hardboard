@@ -24,13 +24,21 @@
                 var buildElem;
                 var vertContainerElem;
                 var dataElem;
+                var oldBuild;
                 $.getJSON(url, function (info) {
                     if (info && info.instance) {
                         if (isNaN(info.build)) info.build = Math.floor(Math.random() * 100);
 
                         circleElem = $("#" + info.instance);
 
-                        if (!circleElem.length) {
+                        if (circleElem.length) {
+                            buildElem = circleElem.find('.build');
+                            oldBuild = buildElem.val();
+                            if (info.build != oldBuild) {
+                                buildElem.text(info.build);
+                                circleElem.css('background-color', buildColor(info.build));
+                            }
+                        } else {
                             circleElem = $('<div class="invisible circle"></div>').attr('id', info.instance);
                             nameElem = $('<div class="name"></div>').text(info.instance);
                             buildElem = $('<div class="build"></div>').text(info.build);
