@@ -39,7 +39,7 @@
                                 circleElem.css('background-color', buildColor(info.build));
                             }
                         } else {
-                            circleElem = $('<div class="invisible circle"></div>').attr('id', info.instance);
+                            circleElem = $('<div class="circle"></div>').attr('id', info.instance).css('opacity', 0);
                             nameElem = $('<div class="name"></div>').text('instance: ' + info.instance);
                             buildElem = $('<div class="build"></div>').text('build: ' + info.build);
                             dataElem = $('<div class="vert-center"></div>');
@@ -48,8 +48,10 @@
                             vertContainerElem.append(dataElem);
                             circleElem.append(vertContainerElem);
                             container = $('#instances').append(circleElem);
-                            circleElem.removeClass('invisible').addClass('visible');
                             circleElem.css('background-color', buildColor(info.build));
+                            setTimeout(function() {
+                                circleElem.css('opacity', 1);
+                            });
                         }
                     }
                 });
@@ -75,7 +77,7 @@
             -webkit-border-radius: 200px;
             -moz-border-radius: 200px;
             border-radius: 200px;
-            transition: background-color 1s ease, opacity 1s ease;
+            transition: background-color 1s ease, opacity 1s ease-in;
         }
         .circle .vert-center-container {
             position: absolute;
@@ -87,14 +89,6 @@
             position: relative;
             top: -50%;
             text-align: center;
-        }
-        .visible {
-            visibility: visible;
-            opacity: 1;
-        }
-        .invisible {
-            visibility: hidden;
-            opacity: 0;
         }
     </style>
 </head>
