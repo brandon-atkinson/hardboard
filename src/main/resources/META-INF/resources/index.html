@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>hardboard</title>
+    <script type="application/javascript" src="js/jquery-2.1.3.min.js"></script>
+    <script>
+        var url = 'build-info';
+        var time = 1000;
+        var info = null;
+
+        function updateInfo() {
+            $.getJSON(url, function(info) {
+                $("#build-info").text(info.host + " : " + info.build);
+            });
+        }
+
+        $(document).ready(
+                setInterval(updateInfo, time)
+        )
+    </script>
+</head>
+<body>
+    <div id="build-info"></div>
+</body>
+</html>
