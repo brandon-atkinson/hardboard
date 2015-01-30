@@ -35,13 +35,13 @@
                             buildElem = circleElem.find('.build');
                             oldBuild = buildElem.val();
                             if (info.build != oldBuild) {
-                                buildElem.text(info.build);
+                                buildElem.text('build: ' + info.build);
                                 circleElem.css('background-color', buildColor(info.build));
                             }
                         } else {
                             circleElem = $('<div class="invisible circle"></div>').attr('id', info.instance);
-                            nameElem = $('<div class="name"></div>').text(info.instance);
-                            buildElem = $('<div class="build"></div>').text(info.build);
+                            nameElem = $('<div class="name"></div>').text('instance: ' + info.instance);
+                            buildElem = $('<div class="build"></div>').text('build: ' + info.build);
                             dataElem = $('<div class="vert-center"></div>');
                             dataElem.append(nameElem).append(buildElem);
                             vertContainerElem = $('<div class="vert-center-container"></div>');
@@ -70,7 +70,7 @@
             -webkit-border-radius: 100px;
             -moz-border-radius: 100px;
             border-radius: 100px;
-            transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+            transition: background-color 1s ease;
         }
         .circle .vert-center-container {
             position: absolute;
