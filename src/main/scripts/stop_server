@@ -3,4 +3,6 @@
 . /etc/profile
 . /etc/globalvars.sh
 
-/usr/bin/killall -u appuser & exit 0
+/usr/bin/killall -q -u appuser
+
+exit 0
