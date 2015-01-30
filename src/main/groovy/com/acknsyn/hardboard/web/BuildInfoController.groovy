@@ -21,6 +21,6 @@ class BuildInfoController {
         } catch (e) {
             instance = InetAddress.getLocalHost().hostName
         }
-        return [host:instance, build:build]
+        return [instance:instance, build:build]
     }
 }

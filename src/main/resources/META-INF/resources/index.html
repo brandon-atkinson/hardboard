@@ -5,22 +5,87 @@
     <title>hardboard</title>
     <script type="application/javascript" src="js/jquery-2.1.3.min.js"></script>
     <script>
-        var url = 'build-info';
-        var time = 1000;
-        var info = null;
+        (function() {
+            var url = 'build-info';
+            time = 1000;
+            var info = null;
 
-        function updateInfo() {
-            $.getJSON(url, function(info) {
-                $("#build-info").text(info.host + " : " + info.build);
-            });
-        }
+            function buildColor(buildNumber){
+                var red =  (buildNumber * 66) % 255;
+                var green = (buildNumber * 97) % 255;
+                var blue = (buildNumber * 103) % 255;
+                return 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+            }
 
-        $(document).ready(
-                setInterval(updateInfo, time)
-        )
+            function updateInfo() {
+                var container;
+                var circleElem;
+                var nameElem;
+                var buildElem;
+                var vertContainerElem;
+                var dataElem;
+                $.getJSON(url, function (info) {
+                    if (info && info.instance) {
+                        if (isNaN(info.build)) info.build = Math.floor(Math.random() * 100);
+
+                        circleElem = $("#" + info.instance);
+
+                        if (!circleElem.length) {
+                            circleElem = $('<div class="invisible circle"></div>').attr('id', info.instance);
+                            nameElem = $('<div class="name"></div>').text(info.instance);
+                            buildElem = $('<div class="build"></div>').text(info.build);
+                            dataElem = $('<div class="vert-center"></div>');
+                            dataElem.append(nameElem).append(buildElem);
+                            vertContainerElem = $('<div class="vert-center-container"></div>');
+                            vertContainerElem.append(dataElem);
+                            circleElem.append(vertContainerElem);
+                            container = $('#instances').append(circleElem);
+                            circleElem.removeClass('invisible').addClass('visible');
+                            circleElem.css('background-color', buildColor(info.build));
+                        }
+                    }
+                });
+            }
+
+            $(document).ready(
+                    setInterval(updateInfo, time)
+            )
+        })();
     </script>
+    <style>
+        .circle {
+            display: table;
+            position: relative;
+            overflow: hidden;
+            width: 200px;
+            height: 200px;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+            border-radius: 100px;
+            transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+        }
+        .circle .vert-center-container {
+            position: absolute;
+            top: 50%;
+            display: table-cell;
+            width: 100%;
+        }
+        .circle .vert-center {
+            position: relative;
+            top: -50%;
+            text-align: center;
+        }
+        .visible {
+            visibility: visible;
+            opacity: 1;
+        }
+        .invisible {
+            visibility: hidden;
+            opacity: 0;
+        }
+    </style>
 </head>
 <body>
-    <div id="build-info"></div>
+    <div id="instances"></div>
 </body>
 </html>
